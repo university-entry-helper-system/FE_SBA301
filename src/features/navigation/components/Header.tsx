@@ -8,20 +8,17 @@ export function Header() {
   const { isAuthenticated, user, logout } = useAuth();
 
   const moreMenuItems = [
-    "Tư vấn chọn trường",
-    "Điểm chuẩn vào 10",
-    "Quy đổi điểm IELTS",
-    "Cách tính điểm xét tuyển ĐH",
-    "Quy đổi điểm BGNL, ĐGTD",
-    "Điểm ưu tiên, điểm khuyến khích",
-    "Mã Trường - Mã ngành ĐH",
-    "Danh sách trúng tuyển",
-    "Công cụ tính điểm tốt nghiệp THPT",
-    "Tra cứu xếp hạng thi",
-    "Điểm thi vào 10",
-    "Điểm thi tốt nghiệp THPT",
-    "Đếm ngược",
-  ];
+    'Tư vấn chọn trường',
+    'Quy đổi điểm IELTS',
+    'Cách tính điểm xét tuyển ĐH',
+    'Quy đổi điểm BGNL, ĐGTD',
+    'Điểm ưu tiên, điểm khuyến khích',
+    'Mã Trường - Mã ngành ĐH',
+    'Danh sách trúng tuyển',
+    'Công cụ tính điểm tốt nghiệp THPT',
+    'Tra cứu xếp hạng thi',
+    'Điểm thi tốt nghiệp THPT',
+  ]
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,24 +43,36 @@ export function Header() {
             <span className="text-xl font-bold text-primary-600">EDUPATH</span>
           </Link>
 
-          <div className="flex items-center space-x-6">
+          <div className="flex-1 flex items-center justify-center space-x-6">
             <Link
-              to="/exam-lookup"
+              to="/de-an-tuyen-sinh"
               className="text-gray-600 hover:text-primary-600 transition-colors"
             >
-              Tra cứu đề án
+              Đề án tuyển sinh
             </Link>
             <Link
-              to="/results"
+              to="/cac-nganh-dao-tao"
               className="text-gray-600 hover:text-primary-600 transition-colors"
             >
-              Kết quả
+              Các ngành đào tạo
+            </Link>
+            <Link
+              to="/tinh-diem-hoc-ba"
+              className="text-gray-600 hover:text-primary-600 transition-colors"
+            >
+              Tính điểm xét học bạ THPT
+            </Link>
+            <Link
+              to="/diem-chuan"
+              className="text-gray-600 hover:text-primary-600 transition-colors"
+            >
+              Điểm chuẩn đại học
             </Link>
 
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="flex items-center space-x-2 text-gray-600 hover:text-primary-600 transition-colors"
+                className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors"
               >
                 <span>Xem thêm</span>
                 <svg
@@ -84,55 +93,49 @@ export function Header() {
               </button>
 
               {showDropdown && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20 max-h-[80vh] overflow-y-auto">
+                <div className="absolute right-0 top-full mt-5 w-72 bg-white shadow-lg border border-gray-100 py-0 z-20">
                   {moreMenuItems.map((item, index) => (
                     <Link
                       key={index}
-                      // TODO: Update paths for these links
                       to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                      className="block w-full px-6 py-3 text-sm text-gray-800 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0"
                       onClick={() => setShowDropdown(false)}
                     >
                       {item}
                     </Link>
                   ))}
-                  <div className="border-t border-gray-200 my-1"></div>
-                  {isAuthenticated ? (
-                    <>
-                      <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
-                        Xin chào, {user?.name}
-                      </div>
-                      <button
-                        onClick={() => {
-                          logout();
-                          setShowDropdown(false);
-                        }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-                      >
-                        Đăng xuất
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <Link
-                        to="/login"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-                        onClick={() => setShowDropdown(false)}
-                      >
-                        Đăng nhập
-                      </Link>
-                      <Link
-                        to="/register"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
-                        onClick={() => setShowDropdown(false)}
-                      >
-                        Đăng ký
-                      </Link>
-                    </>
-                  )}
                 </div>
               )}
             </div>
+          </div>
+
+          <div className="flex items-center space-x-4">
+            {isAuthenticated ? (
+              <>
+                <span className="text-sm text-gray-700">Xin chào, {user?.name}</span>
+                <button
+                  onClick={logout}
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  Đăng xuất
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  Đăng nhập
+                </Link>
+                <Link
+                  to="/register"
+                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                >
+                  Đăng ký
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>

@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
-import { CountdownBanner } from '../components/CountdownBanner'
+import { ImageCarousel } from '../components/ImageCarousel'
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState('de-an')
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
+  // TODO: Replace with actual data from the database
   const schools = [
     {
       id: 1,
@@ -63,7 +64,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white">
-      <CountdownBanner />
+      <ImageCarousel />
       
       {/* Hero Section */}
       <section className="py-12 bg-gradient-to-b from-white to-primary-50">

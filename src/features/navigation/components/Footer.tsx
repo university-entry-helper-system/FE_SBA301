@@ -12,7 +12,7 @@ export const Footer = () => {
             </div>
             <p className="text-sm mb-2">
               CƠ QUAN CHỦ QUẢN: CÔNG TY CỔ PHẦN
-              CÔNG NGHỆ GIÁO DỤC THÀNH PHÁT
+              CÔNG NGHỆ GIÁO DỤC SƠN NAM
             </p>
           </div>
 
@@ -45,10 +45,10 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Thông tin liên hệ</h3>
             <ul className="space-y-2 text-sm">
-              <li>Tel: 024.7300.7989 - Hotline: 1800.6947</li>
-              <li>Email: lienhe@edupath.com</li>
+              <li>Hotline: 0650-113-113</li>
+              <li>Email: cachsat@edupath.com</li>
               <li>
-                Văn phòng: Tầng 7 - Tòa nhà Intracom - Số 82 Dịch Vọng Hậu - Cầu Giấy - Hà Nội
+              Nhà Văn Hóa Sinh Viên
               </li>
             </ul>
           </div>
@@ -56,10 +56,10 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Chứng nhận</h3>
             <p className="text-sm">
-              Giấy phép cung cấp dịch vụ mạng xã hội trực tuyến số 337/GP-BTTTT
+              Giấy phép cung cấp dịch vụ mạng xã hội trực tuyến 
             </p>
             <p className="text-sm mt-2">
-              Giấy phép kinh doanh giáo dục: MST-0106478082
+              Giấy phép kinh doanh giáo dục: FPT-096696969
             </p>
           </div>
         </div>
