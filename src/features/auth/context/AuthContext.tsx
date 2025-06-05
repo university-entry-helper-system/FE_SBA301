@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import api, { endpoints } from "@/lib/axios";
+import { AuthService } from "../services/authService";
 import { Platform, SignInRequest, TokenResponse, ResponseData } from "../types/auth";
 
 interface User {
@@ -27,19 +27,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (username: string, password: string) => {
     try {
-      const request: SignInRequest = {
-        username,
-        password,
-        platform: Platform.WEB,
-        deviceToken: "web_device",
-        version: "1.0.0"
-      };
-
-      const response = await api.post<ResponseData<TokenResponse>>(endpoints.auth.login, request);
+      const response = await AuthService.login(username, password);
       
       if (response?.data?.data) {
         const { accessToken, refreshToken, tokenType } = response.data.data;
-        // Store the complete token with type
         localStorage.setItem("token", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("tokenType", tokenType || 'Bearer');
@@ -61,7 +52,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loginWithGoogle = async () => {
     try {
-      // Mở popup đăng nhập Google
       const width = 500;
       const height = 600;
       const left = window.screenX + (window.outerWidth - width) / 2;
@@ -73,7 +63,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         `width=${width},height=${height},left=${left},top=${top}`
       );
 
-      // Lắng nghe message từ popup
       const handleMessage = async (event: MessageEvent) => {
         if (event.origin !== window.location.origin) return;
         if (event.data.type === "GOOGLE_LOGIN_SUCCESS") {
@@ -94,8 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (email: string, password: string, name: string) => {
     try {
-      const response = await api.post(endpoints.auth.register, { email, password, name });
-
+      const response = await AuthService.register(email, password, name);
       if (response?.data) {
         const { accessToken } = response.data;
         setUser(response.data.user);
@@ -117,8 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const forgotPassword = async (email: string) => {
     try {
-      // TODO: Implement API call
-      await api.post("/auth/forgot-password", { email });
+      await AuthService.forgotPassword(email);
     } catch (error) {
       console.error("Forgot password error:", error);
       throw error;
@@ -127,8 +114,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const resetPassword = async (token: string, password: string) => {
     try {
-      await api.post("/auth/reset-password", { token, password });
-
+      await AuthService.resetPassword(token, password);
     } catch (error) {
       console.error("Reset password error:", error);
       throw error;

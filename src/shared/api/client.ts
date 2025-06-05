@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { useAuth } from '../features/auth/context/AuthContext';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const API_TIMEOUT = Number(import.meta.env.VITE_API_TIMEOUT) || 10000;
+import { useAuth } from '../../features/auth/context/AuthContext';
+import { endpoints } from './endpoints';
+import { API_BASE_URL, API_TIMEOUT } from './config';
 
 // Create axios instance with custom config
 const api = axios.create({
@@ -75,21 +74,6 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// API endpoints
-export const endpoints = {
-  auth: {
-    login: '/auth/access-token',
-    register: '/auth/register',
-    refreshToken: '/auth/refresh-token',
-    logout: '/auth/logout',
-  },
-  user: {
-    profile: '/user/profile',
-    updateProfile: '/user/profile',
-  },
-  // Add more endpoints as needed
-};
 
 // Custom hook for using the API
 export const useApi = () => {
