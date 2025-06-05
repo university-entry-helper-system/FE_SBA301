@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import api, { endpoints } from "@/lib/axios";
+import { Platform, SignInRequest, TokenResponse, ResponseData } from "../types/auth";
 
 interface User {
   id: string;
@@ -10,7 +12,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
@@ -23,24 +25,34 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = async (email: string, password: string) => {
+  const login = async (username: string, password: string) => {
     try {
-      // TODO: Implement API call
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const request: SignInRequest = {
+        username,
+        password,
+        platform: Platform.WEB,
+        deviceToken: "web_device",
+        version: "1.0.0"
+      };
 
-      if (!response.ok) {
+      const response = await api.post<ResponseData<TokenResponse>>(endpoints.auth.login, request);
+      
+      if (response?.data?.data) {
+        const { accessToken, refreshToken, tokenType } = response.data.data;
+        // Store the complete token with type
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("tokenType", tokenType || 'Bearer');
+        
+        // TODO: Fetch user profile and set user data
+        setUser({
+          id: "1", // This should come from user profile
+          email: username,
+          name: username,
+        });
+      } else {
         throw new Error("Login failed");
       }
-
-      const data = await response.json();
-      setUser(data.user);
-      localStorage.setItem("token", data.token);
     } catch (error) {
       console.error("Login error:", error);
       throw error;
@@ -82,22 +94,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (email: string, password: string, name: string) => {
     try {
-      // TODO: Implement API call
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, name }),
-      });
+      const response = await api.post(endpoints.auth.register, { email, password, name });
 
-      if (!response.ok) {
+      if (response?.data) {
+        const { accessToken } = response.data;
+        setUser(response.data.user);
+        localStorage.setItem("token", accessToken);
+      } else {
         throw new Error("Registration failed");
       }
-
-      const data = await response.json();
-      setUser(data.user);
-      localStorage.setItem("token", data.token);
     } catch (error) {
       console.error("Registration error:", error);
       throw error;
@@ -107,22 +112,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
   };
 
   const forgotPassword = async (email: string) => {
     try {
       // TODO: Implement API call
-      const response = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Forgot password request failed");
-      }
+      await api.post("/auth/forgot-password", { email });
     } catch (error) {
       console.error("Forgot password error:", error);
       throw error;
@@ -131,17 +127,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const resetPassword = async (token: string, password: string) => {
     try {
-      const response = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token, password }),
-      });
+      await api.post("/auth/reset-password", { token, password });
 
-      if (!response.ok) {
-        throw new Error("Reset password failed");
-      }
     } catch (error) {
       console.error("Reset password error:", error);
       throw error;

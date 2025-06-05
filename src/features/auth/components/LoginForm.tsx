@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { login, loginWithGoogle } = useAuth();
@@ -14,10 +14,10 @@ export function LoginForm() {
     setError("");
 
     try {
-      await login(email, password);
+      await login(username, password);
       navigate("/");
     } catch (err) {
-      setError("Email hoặc mật khẩu không đúng");
+      setError("Tên đăng nhập hoặc mật khẩu không đúng");
     }
   };
 
@@ -53,21 +53,21 @@ export function LoginForm() {
 
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="username"
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
-                  Email
+                  Email hoặc tên đăng nhập
                 </label>
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
                   required
                   className="input w-full"
-                  placeholder="Nhập email của bạn"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Nhập email hoặc tên đăng nhập của bạn"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
 
