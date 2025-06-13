@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { useAuth } from '../../features/auth/context/AuthContext';
-import { endpoints } from './endpoints';
-import { API_BASE_URL, API_TIMEOUT } from './config';
+import axios, { AxiosError } from "axios";
+import { useAuth } from "../../features/auth/hooks/useAuth";
+import { endpoints } from "./endpoints";
+import { API_BASE_URL, API_TIMEOUT } from "./config";
 
 // Create axios instance with custom config
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   timeout: API_TIMEOUT,
 });
@@ -15,15 +15,15 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
-    const tokenType = localStorage.getItem('tokenType') || 'Bearer';
+    const token = localStorage.getItem("token");
+    const tokenType = localStorage.getItem("tokenType") || "Bearer";
     if (token) {
       // Make sure we have both token type and token value
-      if (!token.includes('.')) {
-        console.error('Invalid token format');
-        localStorage.removeItem('token');
-        localStorage.removeItem('tokenType');
-        window.location.href = '/login';
+      if (!token.includes(".")) {
+        console.error("Invalid token format");
+        localStorage.removeItem("token");
+        localStorage.removeItem("tokenType");
+        window.location.href = "/login";
         return config;
       }
       config.headers.Authorization = `${tokenType} ${token}`;
@@ -49,29 +49,37 @@ api.interceptors.response.use(
 
       try {
         // Attempt to refresh the token
-        const refreshToken = localStorage.getItem('refreshToken');
-        const response = await api.post('/auth/refresh-token', {
+        const refreshToken = localStorage.getItem("refreshToken");
+        const response = await api.post("/auth/refresh-token", {
           refreshToken,
         });
 
         const { accessToken, tokenType } = response.data.data;
-        localStorage.setItem('token', accessToken);
-        localStorage.setItem('tokenType', tokenType);
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("tokenType", tokenType);
 
         // Retry the original request with new token
         originalRequest.headers.Authorization = `${tokenType} ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
         // If refresh token fails, clear tokens and redirect
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('tokenType');
-        window.location.href = '/login';
-        return Promise.reject(refreshError);
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("tokenType");
+        window.location.href = "/login";
+        return Promise.reject(
+          new Error(
+            refreshError instanceof Error
+              ? refreshError.message
+              : "Token refresh failed"
+          )
+        );
       }
     }
 
-    return Promise.reject(error);
+    return Promise.reject(
+      error instanceof Error ? error : new Error("Request failed")
+    );
   }
 );
 
@@ -79,7 +87,7 @@ api.interceptors.response.use(
 export const useApi = () => {
   const { logout } = useAuth();
 
-  const handleError = (error: any) => {
+  const handleError = (error: AxiosError) => {
     if (error.response?.status === 401) {
       logout();
     }
@@ -92,7 +100,7 @@ export const useApi = () => {
         const response = await api.get(url, config);
         return response.data;
       } catch (error) {
-        handleError(error);
+        handleError(error as AxiosError);
       }
     },
     post: async (url: string, data = {}, config = {}) => {
@@ -100,7 +108,7 @@ export const useApi = () => {
         const response = await api.post(url, data, config);
         return response.data;
       } catch (error) {
-        handleError(error);
+        handleError(error as AxiosError);
       }
     },
     put: async (url: string, data = {}, config = {}) => {
@@ -108,7 +116,7 @@ export const useApi = () => {
         const response = await api.put(url, data, config);
         return response.data;
       } catch (error) {
-        handleError(error);
+        handleError(error as AxiosError);
       }
     },
     delete: async (url: string, config = {}) => {
@@ -116,7 +124,7 @@ export const useApi = () => {
         const response = await api.delete(url, config);
         return response.data;
       } catch (error) {
-        handleError(error);
+        handleError(error as AxiosError);
       }
     },
     api, // Expose the axios instance if needed
@@ -124,4 +132,4 @@ export const useApi = () => {
   };
 };
 
-export default api; 
+export default api;

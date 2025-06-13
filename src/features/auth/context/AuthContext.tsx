@@ -1,6 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useMemo } from "react";
 import { AuthService } from "../services/authService";
-import { Platform, SignInRequest, TokenResponse, ResponseData } from "../types/auth";
 
 interface User {
   id: string;
@@ -20,21 +19,27 @@ interface AuthContextType {
   resetPassword: (token: string, password: string) => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+interface AuthProviderProps {
+  readonly children: ReactNode;
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
 
   const login = async (username: string, password: string) => {
     try {
       const response = await AuthService.login(username, password);
-      
+
       if (response?.data?.data) {
         const { accessToken, refreshToken, tokenType } = response.data.data;
         localStorage.setItem("token", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("tokenType", tokenType || 'Bearer');
-        
+        localStorage.setItem("tokenType", tokenType || "Bearer");
+
         // TODO: Fetch user profile and set user data
         setUser({
           id: "1", // This should come from user profile
@@ -121,28 +126,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        login,
-        loginWithGoogle,
-        register,
-        logout,
-        forgotPassword,
-        resetPassword,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      user,
+      isAuthenticated: !!user,
+      login,
+      loginWithGoogle,
+      register,
+      logout,
+      forgotPassword,
+      resetPassword,
+    }),
+    [user]
   );
-}
 
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

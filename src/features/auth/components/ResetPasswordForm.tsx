@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export function ResetPasswordForm() {
   const [password, setPassword] = useState("");
@@ -38,8 +38,12 @@ export function ResetPasswordForm() {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-    } catch (err) {
-      setError("Đặt lại mật khẩu thất bại. Vui lòng thử lại.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Đặt lại mật khẩu thất bại. Vui lòng thử lại.");
+      }
     }
   };
 

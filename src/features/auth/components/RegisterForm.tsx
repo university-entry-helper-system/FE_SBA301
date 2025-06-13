@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export function RegisterForm() {
   const [name, setName] = useState("");
@@ -23,8 +23,12 @@ export function RegisterForm() {
     try {
       await register(email, password, name);
       navigate("/");
-    } catch (err) {
-      setError("Đăng ký thất bại. Vui lòng thử lại.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Đăng ký thất bại. Vui lòng thử lại.");
+      }
     }
   };
 

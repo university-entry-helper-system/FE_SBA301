@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
@@ -16,8 +16,12 @@ export function ForgotPasswordForm() {
     try {
       await forgotPassword(email);
       setSuccess(true);
-    } catch (err) {
-      setError("Gửi yêu cầu khôi phục mật khẩu thất bại. Vui lòng thử lại.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Gửi yêu cầu khôi phục mật khẩu thất bại. Vui lòng thử lại.");
+      }
     }
   };
 
