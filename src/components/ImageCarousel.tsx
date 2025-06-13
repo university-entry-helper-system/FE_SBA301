@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { CountdownBanner } from './CountdownBanner';
+import { useState, useEffect } from "react";
+import { CountdownBanner } from "./CountdownBanner";
 
 interface Image {
   id: number;
@@ -9,7 +9,7 @@ interface Image {
 
 interface CarouselSlide {
   id: number;
-  type: 'image' | 'countdown';
+  type: "image" | "countdown";
   content: Image | null;
 }
 
@@ -18,40 +18,45 @@ interface ImageCarouselProps {
   interval?: number;
 }
 
-export const ImageCarousel = ({ images: propImages, interval = 10000 }: ImageCarouselProps) => {
+export const ImageCarousel = ({
+  images: propImages,
+  interval = 10000,
+}: ImageCarouselProps) => {
   const defaultImages: Image[] = [
     {
       id: 1,
-      url: 'banner1.jpg',
-      alt: 'University entrance exam preparation'
+      url: "banner1.jpg",
+      alt: "University entrance exam preparation",
     },
     {
       id: 2,
-      url: 'banner2.jpg',
-      alt: 'Study tips and guidance'
+      url: "banner2.jpg",
+      alt: "Study tips and guidance",
     },
     {
       id: 3,
-      url: 'banner3.jpg',
-      alt: 'Success stories'
-    }
+      url: "banner3.jpg",
+      alt: "Success stories",
+    },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [images] = useState<Image[]>(propImages || defaultImages);
-  
+
   // Create slides array with countdown first, then images
   const slides: CarouselSlide[] = [
     {
       id: 0,
-      type: 'countdown',
-      content: null
+      type: "countdown",
+      content: null,
     },
-    ...images.map((img): CarouselSlide => ({
-      id: img.id,
-      type: 'image',
-      content: img
-    }))
+    ...images.map(
+      (img): CarouselSlide => ({
+        id: img.id,
+        type: "image",
+        content: img,
+      })
+    ),
   ];
 
   useEffect(() => {
@@ -69,16 +74,13 @@ export const ImageCarousel = ({ images: propImages, interval = 10000 }: ImageCar
   return (
     <div className="relative w-full overflow-hidden ">
       {/* Slides */}
-      <div 
-        className="flex transition-transform duration-500 ease-out"
+      <div
+        className="flex transition-transform duration-3000 ease-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {slides.map((slide) => (
-          <div
-            key={slide.id}
-            className="w-full flex-shrink-0"
-          >
-            {slide.type === 'image' && slide.content && (
+          <div key={slide.id} className="w-full flex-shrink-0">
+            {slide.type === "image" && slide.content && (
               <div className="py-10">
                 <div className="container mx-auto px-4">
                   <div className="bg-gradient-to-r from-orange-500/10 to-amber-500/10 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
@@ -92,9 +94,7 @@ export const ImageCarousel = ({ images: propImages, interval = 10000 }: ImageCar
                 </div>
               </div>
             )}
-            {slide.type === 'countdown' && (
-              <CountdownBanner />
-            )}
+            {slide.type === "countdown" && <CountdownBanner />}
           </div>
         ))}
       </div>
@@ -102,11 +102,23 @@ export const ImageCarousel = ({ images: propImages, interval = 10000 }: ImageCar
       {/* Left/Right Navigation Arrows */}
       <button
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-colors duration-200 z-20"
-        onClick={() => goToSlide((currentIndex - 1 + slides.length) % slides.length)}
+        onClick={() =>
+          goToSlide((currentIndex - 1 + slides.length) % slides.length)
+        }
         aria-label="Previous slide"
       >
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
       </button>
       <button
@@ -114,10 +126,20 @@ export const ImageCarousel = ({ images: propImages, interval = 10000 }: ImageCar
         onClick={() => goToSlide((currentIndex + 1) % slides.length)}
         aria-label="Next slide"
       >
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
         </svg>
       </button>
     </div>
   );
-}; 
+};
