@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { useAuth } from "../../auth/context/AuthContext";
+import { useAuth } from "../../auth/hooks/useAuth";
 
 export function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -8,17 +8,17 @@ export function Header() {
   const { isAuthenticated, user, logout } = useAuth();
 
   const moreMenuItems = [
-    'Tư vấn chọn trường',
-    'Quy đổi điểm IELTS',
-    'Cách tính điểm xét tuyển ĐH',
-    'Quy đổi điểm BGNL, ĐGTD',
-    'Điểm ưu tiên, điểm khuyến khích',
-    'Mã Trường - Mã ngành ĐH',
-    'Danh sách trúng tuyển',
-    'Công cụ tính điểm tốt nghiệp THPT',
-    'Tra cứu xếp hạng thi',
-    'Điểm thi tốt nghiệp THPT',
-  ]
+    "Tư vấn chọn trường",
+    "Quy đổi điểm IELTS",
+    "Cách tính điểm xét tuyển ĐH",
+    "Quy đổi điểm BGNL, ĐGTD",
+    "Điểm ưu tiên, điểm khuyến khích",
+    "Mã Trường - Mã ngành ĐH",
+    "Danh sách trúng tuyển",
+    "Công cụ tính điểm tốt nghiệp THPT",
+    "Tra cứu xếp hạng thi",
+    "Điểm thi tốt nghiệp THPT",
+  ];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -112,7 +112,9 @@ export function Header() {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <span className="text-sm text-gray-700">Xin chào, {user?.name}</span>
+                <span className="text-sm text-gray-700">
+                  Xin chào, {user?.name}
+                </span>
                 <button
                   onClick={logout}
                   className="text-gray-600 hover:text-primary-600 transition-colors"
