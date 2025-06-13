@@ -2,22 +2,68 @@ import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../../auth/hooks/useAuth";
 
+interface MenuItem {
+  path: string;
+  label: string;
+  component: string;
+}
+
 export function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { isAuthenticated, user, logout } = useAuth();
 
-  const moreMenuItems = [
-    "Tư vấn chọn trường",
-    "Quy đổi điểm IELTS",
-    "Cách tính điểm xét tuyển ĐH",
-    "Quy đổi điểm BGNL, ĐGTD",
-    "Điểm ưu tiên, điểm khuyến khích",
-    "Mã Trường - Mã ngành ĐH",
-    "Danh sách trúng tuyển",
-    "Công cụ tính điểm tốt nghiệp THPT",
-    "Tra cứu xếp hạng thi",
-    "Điểm thi tốt nghiệp THPT",
+  const moreMenuItems: MenuItem[] = [
+    {
+      path: "/school-consultation",
+      label: "Tư vấn chọn trường",
+      component: "SchoolConsultation",
+    },
+    {
+      path: "/ielts-score-conversion",
+      label: "Quy đổi điểm IELTS",
+      component: "IeltsScoreConversion",
+    },
+    {
+      path: "/university-admission-calculator",
+      label: "Cách tính điểm xét tuyển ĐH",
+      component: "UniversityAdmissionCalculator",
+    },
+    {
+      path: "/competency-score-conversion",
+      label: "Quy đổi điểm BGNL, ĐGTD",
+      component: "CompetencyScoreConversion",
+    },
+    {
+      path: "/bonus-points",
+      label: "Điểm ưu tiên, điểm khuyến khích",
+      component: "BonusPoints",
+    },
+    {
+      path: "/school-major-codes",
+      label: "Mã Trường - Mã ngành ĐH",
+      component: "SchoolMajorCodes",
+    },
+    {
+      path: "/admission-results",
+      label: "Danh sách trúng tuyển",
+      component: "AdmissionResults",
+    },
+    {
+      path: "/graduation-score-calculator",
+      label: "Công cụ tính điểm tốt nghiệp THPT",
+      component: "GraduationScoreCalculator",
+    },
+    {
+      path: "/exam-rankings",
+      label: "Tra cứu xếp hạng thi",
+      component: "ExamRankings",
+    },
+    {
+      path: "/graduation-exam-scores",
+      label: "Điểm thi tốt nghiệp THPT",
+      component: "GraduationExamScores",
+    },
   ];
 
   useEffect(() => {
@@ -94,14 +140,14 @@ export function Header() {
 
               {showDropdown && (
                 <div className="absolute right-0 top-full mt-5 w-72 bg-white shadow-lg border border-gray-100 py-0 z-20">
-                  {moreMenuItems.map((item, index) => (
+                  {moreMenuItems.map((item) => (
                     <Link
-                      key={index}
-                      to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                      key={item.path}
+                      to={item.path}
                       className="block w-full px-6 py-3 text-sm text-gray-800 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0"
                       onClick={() => setShowDropdown(false)}
                     >
-                      {item}
+                      {item.label}
                     </Link>
                   ))}
                 </div>
