@@ -7,28 +7,54 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: "#f0f9ff",
-          100: "#e0f2fe",
-          200: "#bae6fd",
-          300: "#7dd3fc",
-          400: "#38bdf8",
-          500: "#0ea5e9",
-          600: "#0284c7",
-          700: "#0369a1",
-          800: "#075985",
-          900: "#0c4a6e",
+          50: "#f5f3ff",
+          100: "#ede9fe",
+          200: "#ddd6fe",
+          300: "#c4b5fd",
+          400: "#a78bfa",
+          500: "#8b5cf6",
+          600: "#7c3aed",
+          700: "#6d28d9", // violet-700 - Main brand color
+          800: "#5b21b6",
+          900: "#4c1d95",
         },
-        secondary: {
-          50: "#fff7ed",
-          100: "#ffedd5",
-          200: "#fed7aa",
-          300: "#fdba74",
-          400: "#fb923c",
-          500: "#f97316",
-          600: "#ea580c",
-          700: "#c2410c",
-          800: "#9a3412",
-          900: "#7c2d12",
+        accent: {
+          50: "#ecfdf5",
+          100: "#d1fae5",
+          200: "#a7f3d0",
+          300: "#6ee7b7",
+          400: "#34d399", // emerald-400 - Accent color
+          500: "#10b981",
+          600: "#059669",
+          700: "#047857",
+          800: "#065f46",
+          900: "#064e3b",
+        },
+        background: {
+          DEFAULT: "#f5f3ff", // purple-50
+          gradient: {
+            from: "#f5f3ff", // purple-50
+            to: "#ede9fe", // purple-100
+          },
+        },
+        neutral: {
+          50: "#f9fafb",
+          100: "#f3f4f6",
+          200: "#e5e7eb",
+          300: "#d1d5db",
+          400: "#9ca3af",
+          500: "#6b7280",
+          600: "#4b5563",
+          700: "#374151", // Main text color for better contrast
+          800: "#1f2937",
+          900: "#111827",
+        },
+        // Custom brand colors
+        brand: {
+          light: "#f5f3ff", // Light purple background
+          dark: "#6d28d9", // Dark purple for text
+          accent: "#34d399", // Emerald accent
+          highlight: "#fde68a", // Amber highlight
         },
       },
       fontFamily: {
@@ -48,6 +74,11 @@ export default {
           xl: "5rem",
           "2xl": "6rem",
         },
+      },
+      backgroundImage: {
+        "gradient-primary":
+          "linear-gradient(to bottom right, var(--tw-gradient-stops))",
+        "gradient-subtle": "linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)",
       },
       keyframes: {
         "float-slow": {

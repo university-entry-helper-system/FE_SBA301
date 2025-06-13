@@ -39,12 +39,12 @@ export const CountdownBanner = () => {
   }, []);
 
   return (
-    <div className="relative w-full py-12 sm:py-16 md:py-20 bg-gradient-to-r from-orange-500 via-amber-400 to-yellow-300 overflow-hidden">
+    <div className="relative w-full py-12 sm:py-16 md:py-20 bg-gradient-to-r from-primary-700 via-primary-600 to-accent-400 overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none select-none">
-        <div className="absolute -top-8 -left-8 w-32 h-32 sm:w-40 sm:h-40 bg-yellow-300/30 rounded-full blur-xl animate-float-slow"></div>
-        <div className="absolute top-1/2 -right-12 w-40 h-40 sm:w-48 sm:h-48 bg-orange-300/30 rounded-full blur-xl animate-float-medium"></div>
-        <div className="absolute -bottom-8 left-1/3 w-28 h-28 sm:w-36 sm:h-36 bg-amber-300/30 rounded-full blur-xl animate-float-fast"></div>
+        <div className="absolute -top-8 -left-8 w-32 h-32 sm:w-40 sm:h-40 bg-primary-400/30 rounded-full blur-xl animate-float-slow"></div>
+        <div className="absolute top-1/2 -right-12 w-40 h-40 sm:w-48 sm:h-48 bg-accent-300/30 rounded-full blur-xl animate-float-medium"></div>
+        <div className="absolute -bottom-8 left-1/3 w-28 h-28 sm:w-36 sm:h-36 bg-primary-300/30 rounded-full blur-xl animate-float-fast"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -55,11 +55,11 @@ export const CountdownBanner = () => {
               @keyframes pulse-glow {
                 0%, 100% {
                   transform: scale(1);
-                  filter: drop-shadow(0 4px 16px #ff9800cc);
+                  filter: drop-shadow(0 4px 16px rgba(109, 40, 217, 0.8));
                 }
                 50% {
                   transform: scale(1.06);
-                  filter: drop-shadow(0 6px 24px #ff9800ff);
+                  filter: drop-shadow(0 6px 24px rgba(109, 40, 217, 1));
                 }
               }
               .animate-pulse-glow {
@@ -69,7 +69,7 @@ export const CountdownBanner = () => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight animate-pulse-glow">
               Đếm ngược ngày thi đại học 2025
             </h2>
-            <p className="text-lg sm:text-xl text-yellow-100 animate-fade-in-delay">
+            <p className="text-lg sm:text-xl text-primary-100 animate-fade-in-delay">
               Kỳ thi dự kiến bắt đầu ngày 25/06/2025
             </p>
           </div>
@@ -93,16 +93,16 @@ interface TimeBoxProps {
 
 const TimeBox = ({ value, label }: TimeBoxProps) => (
   <div className="flex flex-col items-center">
-    <div className="bg-orange-250 backdrop-blur-md rounded-2xl shadow-2xl px-6 min-w-[70px] py-4 border border-white/30 w-full sm:w-20 md:w-24 lg:w-28 sm:px-2 md:px-3 lg:px-4 sm:min-w-0">
+    <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl px-6 min-w-[70px] py-4 border border-white/30 w-full sm:w-20 md:w-24 lg:w-28 sm:px-2 md:px-3 lg:px-4 sm:min-w-0">
       <div
-        className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#f8fafc] tracking-widest text-center"
-        style={{ textShadow: "0 0 2px #000, 0 0 2px #000" }}
+        className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-widest text-center"
+        style={{ textShadow: "0 0 2px rgba(0,0,0,0.3)" }}
       >
         {value.toString().padStart(2, "0")}
       </div>
       <div
-        className="text-[10px] sm:text-xs md:text-sm text-[#f8fafc] mt-1 font-semibold tracking-wide uppercase text-center"
-        style={{ textShadow: "0 0 2px #000, 0 0 2px #000" }}
+        className="text-[10px] sm:text-xs md:text-sm text-white/90 mt-1 font-semibold tracking-wide uppercase text-center"
+        style={{ textShadow: "0 0 2px rgba(0,0,0,0.3)" }}
       >
         {label}
       </div>

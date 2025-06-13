@@ -17,6 +17,9 @@ import { ExamRankingsPage } from "./pages/ExamRankingsPage";
 import { GraduationExamScoresPage } from "./pages/GraduationExamScoresPage";
 import { LoginForm } from "./features/auth/components/LoginForm";
 import { RegisterForm } from "./features/auth/components/RegisterForm";
+import { ForgotPasswordForm } from "./features/auth/components/ForgotPasswordForm";
+import { ResetPasswordForm } from "./features/auth/components/ResetPasswordForm";
+import { Footer } from "./features/navigation/components/Footer";
 
 function App() {
   return (
@@ -84,8 +87,11 @@ function App() {
                 path="/graduation-exam-scores"
                 element={<GraduationExamScoresPage />}
               />
+              <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+              <Route path="/reset-password" element={<ResetPasswordForm />} />
             </Routes>
           </main>
+          <Footer />
         </div>
       </AuthProvider>
     </ErrorBoundary>

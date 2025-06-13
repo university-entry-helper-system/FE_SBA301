@@ -103,12 +103,12 @@ export function Header() {
   ];
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-gradient-subtle shadow-sm">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
-            <span className="text-xl font-bold text-primary-600">EDUPATH</span>
+            <span className="text-xl font-bold text-primary-700">EDUPATH</span>
           </Link>
 
           {/* Desktop menu */}
@@ -117,7 +117,7 @@ export function Header() {
               <Link
                 key={item.path}
                 to={item.path}
-                className="text-gray-600 hover:text-primary-600 transition-colors"
+                className="text-neutral-700 hover:text-primary-700 transition-colors"
               >
                 {item.label}
               </Link>
@@ -126,7 +126,7 @@ export function Header() {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors"
+                className="flex items-center space-x-2 text-primary-700 hover:text-accent-400 transition-colors"
               >
                 <span>Xem thêm</span>
                 <svg
@@ -147,12 +147,12 @@ export function Header() {
               </button>
 
               {showDropdown && (
-                <div className="absolute right-0 top-full mt-5 w-72 bg-white shadow-lg border border-gray-100 py-0 z-20">
+                <div className="absolute right-0 top-full mt-5 w-72 bg-white shadow-lg border border-neutral-100 py-0 z-20">
                   {moreMenuItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
-                      className="block w-full px-6 py-3 text-sm text-gray-800 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0"
+                      className="block w-full px-6 py-3 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary-700 transition-colors border-b border-neutral-100 last:border-b-0"
                       onClick={() => setShowDropdown(false)}
                     >
                       {item.label}
@@ -167,12 +167,12 @@ export function Header() {
           <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   Xin chào, {user?.name}
                 </span>
                 <button
                   onClick={logout}
-                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                  className="text-neutral-700 hover:text-primary-700 transition-colors"
                 >
                   Đăng xuất
                 </button>
@@ -181,13 +181,13 @@ export function Header() {
               <>
                 <Link
                   to="/login"
-                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                  className="text-neutral-700 hover:text-primary-700 transition-colors"
                 >
                   Đăng nhập
                 </Link>
                 <Link
                   to="/register"
-                  className="text-gray-600 hover:text-primary-600 transition-colors"
+                  className="text-neutral-700 hover:text-primary-700 transition-colors"
                 >
                   Đăng ký
                 </Link>
@@ -197,12 +197,12 @@ export function Header() {
 
           {/* Hamburger icon (mobile only) */}
           <button
-            className="block md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="block md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-400"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
             aria-label="Mở menu"
           >
             <svg
-              className="w-7 h-7 text-primary-600"
+              className="w-7 h-7 text-primary-700"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -224,15 +224,15 @@ export function Header() {
         <div className="fixed inset-0 z-40 bg-black/40 flex md:hidden">
           <div
             ref={mobileMenuRef}
-            className="bg-white w-4/5 max-w-xs h-full shadow-lg p-6 flex flex-col gap-2 animate-slide-in-left"
+            className="bg-gradient-subtle w-4/5 max-w-xs h-full shadow-lg p-6 flex flex-col gap-2 animate-slide-in-left"
           >
             <button
-              className="self-end mb-4 p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="self-end mb-4 p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary-400"
               onClick={() => setShowMobileMenu(false)}
               aria-label="Đóng menu"
             >
               <svg
-                className="w-6 h-6 text-gray-600"
+                className="w-6 h-6 text-neutral-700"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -250,20 +250,20 @@ export function Header() {
               <Link
                 key={item.path}
                 to={item.path}
-                className="block py-3 px-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-100 rounded transition-colors"
+                className="block py-3 px-2 text-base font-medium text-neutral-700 hover:text-primary-700 hover:bg-white/50 rounded transition-colors"
                 onClick={() => setShowMobileMenu(false)}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="border-t border-gray-200 my-2"></div>
+            <div className="border-t border-neutral-200 my-2"></div>
             {isAuthenticated ? (
               <button
                 onClick={() => {
                   logout();
                   setShowMobileMenu(false);
                 }}
-                className="block w-full text-left py-3 px-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-100 rounded transition-colors"
+                className="block w-full text-left py-3 px-2 text-base font-medium text-neutral-700 hover:text-primary-700 hover:bg-white/50 rounded transition-colors"
               >
                 Đăng xuất
               </button>
@@ -271,14 +271,14 @@ export function Header() {
               <>
                 <Link
                   to="/login"
-                  className="block py-3 px-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-100 rounded transition-colors"
+                  className="block py-3 px-2 text-base font-medium text-neutral-700 hover:text-primary-700 hover:bg-white/50 rounded transition-colors"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Đăng nhập
                 </Link>
                 <Link
                   to="/register"
-                  className="block py-3 px-2 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-100 rounded transition-colors"
+                  className="text-neutral-700 hover:text-primary-700 transition-colors"
                   onClick={() => setShowMobileMenu(false)}
                 >
                   Đăng ký
