@@ -32,12 +32,14 @@ A web application for looking up and viewing student exam results.
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/university-entry-helper-system/FE_SBA301.git
    cd SBA_FE
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -122,4 +124,7 @@ src/
 
 ## License
 
-This project is licensed under the MIT License. 
+This project is licensed under the MIT License.
+
+<!-- npm install -D tailwindcss postcss autoprefixer @tailwindcss/forms -->
+<!-- npx tailwindcss init -p -->
