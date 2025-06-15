@@ -76,7 +76,7 @@ const HomePage = () => {
             {/* Tab Navigation */}
             <div className="flex gap-2 mb-6 p-1 bg-white rounded-lg shadow-sm">
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "de-an"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"
@@ -86,7 +86,7 @@ const HomePage = () => {
                 Đề án
               </button>
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "diem-chuan"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"
@@ -96,7 +96,7 @@ const HomePage = () => {
                 Điểm chuẩn
               </button>
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "khoi-mon"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"
@@ -106,7 +106,7 @@ const HomePage = () => {
                 Khối - Tổ hợp môn
               </button>
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "nganh"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"

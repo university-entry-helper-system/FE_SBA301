@@ -128,4 +128,6 @@ This project is licensed under the MIT License.
 
 <!-- npm install -D tailwindcss postcss autoprefixer @tailwindcss/forms -->
 <!-- npx tailwindcss init -p -->
-<!-- npx tailwindcss -i ./src/shared/styles/global.css -o ./dist/output.css --watch -->
+<!-- npx tailwindcss -i ./src/shared/styles/global.css -o ./dist/output.css 
+--watch -->
+<!-- npm install react-icons -->

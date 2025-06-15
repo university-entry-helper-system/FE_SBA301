@@ -50,7 +50,7 @@ export const CountdownBanner = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-6">
-          <div className="text-center md:text-left space-y-3 md:space-y-4 max-w-xl ml-20">
+          <div className="text-center md:text-left space-y-3 md:space-y-4 max-w-xl pg:ml-20 md:ml-10">
             {/* Pulse-glow animation for heading */}
             <style>{`
               @keyframes pulse-glow {
@@ -94,7 +94,7 @@ interface TimeBoxProps {
 
 const TimeBox = ({ value, label }: TimeBoxProps) => (
   <div className="flex flex-col items-center">
-    <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl min-w-[70px] py-6 border border-white/30 w-full w-24 px-2 sm:min-w-0 transition-transform duration-200 hover:scale-110">
+    <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl min-w-[70px] py-6 border border-white/30 w-24 px-2 sm:min-w-0 transition-transform hover:scale-110">
       <div
         className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-widest text-center"
         style={{ textShadow: "0 0 2px rgba(0,0,0,0.3)" }}
