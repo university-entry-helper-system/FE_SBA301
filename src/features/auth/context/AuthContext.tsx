@@ -6,6 +6,7 @@ interface User {
   email: string;
   name: string;
   avatar?: string;
+  role: string;
 }
 
 interface AuthContextType {
@@ -45,6 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           id: "1", // This should come from user profile
           email: username,
           name: username,
+          role: "user", // Default role, should come from API
         });
       } else {
         throw new Error("Login failed");
