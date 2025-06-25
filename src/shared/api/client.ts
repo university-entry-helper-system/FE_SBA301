@@ -16,7 +16,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    const tokenType = localStorage.getItem("tokenType") || "Bearer";
+    const tokenType = localStorage.getItem("tokenType") ?? "Bearer";
     if (token) {
       // Make sure we have both token type and token value
       if (!token.includes(".")) {
@@ -31,7 +31,7 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error instanceof Error ? error : new Error('Request failed'));
   }
 );
 
@@ -77,9 +77,7 @@ api.interceptors.response.use(
       }
     }
 
-    return Promise.reject(
-      error instanceof Error ? error : new Error("Request failed")
-    );
+    return Promise.reject(error instanceof Error ? error : new Error('Request failed'));
   }
 );
 

@@ -76,7 +76,7 @@ const HomePage = () => {
             {/* Tab Navigation */}
             <div className="flex gap-2 mb-6 p-1 bg-white rounded-lg shadow-sm">
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "de-an"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"
@@ -86,7 +86,7 @@ const HomePage = () => {
                 Đề án
               </button>
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "diem-chuan"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"
@@ -96,7 +96,7 @@ const HomePage = () => {
                 Điểm chuẩn
               </button>
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "khoi-mon"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"
@@ -106,7 +106,7 @@ const HomePage = () => {
                 Khối - Tổ hợp môn
               </button>
               <button
-                className={`btn flex-1 rounded-md transition-colors ${
+                className={`btn flex-1 rounded-md transition-colors border-primary-700 border-2 ${
                   activeTab === "nganh"
                     ? "bg-primary-700 text-white"
                     : "bg-white text-primary-700 hover:bg-gray-100"
@@ -229,11 +229,11 @@ const HomePage = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold mb-6">
-            THÔNG TIN TUYỂN SINH MỚI NHẤT 2025
+            THÔNG TIN TUYỂN SINH MỚI NHẤT {new Date().getFullYear()}
           </h2>
           <p className="text-gray-600 mb-8 max-w-4xl">
             Bộ Giáo dục và Đào tạo mới đây đã công bố danh mục 17 phương thức
-            xét tuyển đại học năm 2025 như: Xét kết quả thi tốt nghiệp THPT, xét
+            xét tuyển đại học năm {new Date().getFullYear()} như: Xét kết quả thi tốt nghiệp THPT, xét
             kết quả học tập cấp THPT (học bạ), xét kết quả thi đánh giá năng
             lực, xét kết quả thi đánh giá tư duy...
           </p>
@@ -280,11 +280,11 @@ const HomePage = () => {
           {/* Main Announcement and Schools */}
           <div className="bg-white p-6 rounded-lg shadow-sm mb-8">
             <h2 className="text-2xl font-bold mb-4">
-              Trường đại học mới công bố đề án tuyển sinh 2025
+              Trường đại học mới công bố đề án tuyển sinh {new Date().getFullYear()}
             </h2>
             <p className="text-gray-600 mb-6">
-              Các trường Đại học đã bắt đầu công bố thông tin tuyển sinh năm
-              2025. Theo đó phương thức xét tuyển của các trường đa số gồm: xét
+              Các trường Đại học đã bắt đầu công bố thông tin tuyển sinh năm {new Date().getFullYear()}
+              . Theo đó phương thức xét tuyển của các trường đa số gồm: xét
               kết quả thi tốt nghiệp THPT, xét học bạ, xét kết quả thi ĐGNL, xét
               kết quả thi đánh giá tư duy. Chỉ tiêu tuyển sinh của ngành, tổ hợp
               xét tuyển của ngành đó vào các trường cũng là thông tin quan trọng
@@ -319,11 +319,11 @@ const HomePage = () => {
             <h3 className="text-xl font-bold mb-4">Các tin khác</h3>
             <div className="space-y-4">
               {[
-                "Danh sách trường công bố đề án tuyển sinh 2025 - Mới nhất(24/05/2025)",
-                "Thông tin tuyển sinh Đại học Văn hóa Hà Nội năm 2025(24/05/2025)",
-                "Danh sách các trường mở cổng đăng ký nộp hồ sơ xét tuyển 2025(24/05/2025)",
-                "Danh sách các trường Đại học xét học bạ 2025 - Mới nhất(24/05/2025)",
-                "Đại học Giao thông vận tải công bố thông tin tuyển sinh 2025(24/05/2025)",
+                `Danh sách trường công bố đề án tuyển sinh ${new Date().getFullYear()} - Mới nhất(24/05/${new Date().getFullYear()})`,
+                `Thông tin tuyển sinh Đại học Văn hóa Hà Nội năm ${new Date().getFullYear()}(24/05/${new Date().getFullYear()})`,
+                `Danh sách các trường mở cổng đăng ký nộp hồ sơ xét tuyển ${new Date().getFullYear()}(24/05/${new Date().getFullYear()})`,
+                `Danh sách các trường Đại học xét học bạ ${new Date().getFullYear()} - Mới nhất(24/05/${new Date().getFullYear()})`,
+                `Đại học Giao thông vận tải công bố thông tin tuyển sinh ${new Date().getFullYear()}(24/05/${new Date().getFullYear()})`,
               ].map((news, index) => (
                 <Link
                   key={index}

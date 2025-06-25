@@ -16,7 +16,8 @@ export const CountdownBanner = () => {
   });
 
   useEffect(() => {
-    const targetDate = new Date("2025-06-25T00:00:00");
+    const currentYear = new Date().getFullYear();
+    const targetDate = new Date(`${currentYear}-06-25T00:00:00`);
 
     const calculateTimeLeft = () => {
       const now = new Date();
@@ -48,8 +49,8 @@ export const CountdownBanner = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
-          <div className="text-center md:text-left space-y-3 md:space-y-4 max-w-xl">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-6">
+          <div className="text-center md:text-left space-y-3 md:space-y-4 max-w-xl pg:ml-20 md:ml-10">
             {/* Pulse-glow animation for heading */}
             <style>{`
               @keyframes pulse-glow {
@@ -67,10 +68,10 @@ export const CountdownBanner = () => {
               }
             `}</style>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight animate-pulse-glow">
-              Đếm ngược ngày thi đại học 2025
+              Đếm ngược ngày thi đại học {new Date().getFullYear()}
             </h2>
             <p className="text-lg sm:text-xl text-primary-100 animate-fade-in-delay">
-              Kỳ thi dự kiến bắt đầu ngày 25/06/2025
+              Kỳ thi dự kiến bắt đầu ngày 25/06/{new Date().getFullYear()}
             </p>
           </div>
 
@@ -93,7 +94,7 @@ interface TimeBoxProps {
 
 const TimeBox = ({ value, label }: TimeBoxProps) => (
   <div className="flex flex-col items-center">
-    <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl px-6 min-w-[70px] py-4 border border-white/30 w-full sm:w-20 md:w-24 lg:w-28 sm:px-2 md:px-3 lg:px-4 sm:min-w-0">
+    <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl min-w-[70px] py-6 border border-white/30 w-24 px-2 sm:min-w-0 transition-transform hover:scale-110">
       <div
         className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-widest text-center"
         style={{ textShadow: "0 0 2px rgba(0,0,0,0.3)" }}
